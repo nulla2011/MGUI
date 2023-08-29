@@ -1,10 +1,10 @@
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { createTheme } from '@mui/material/styles';
 import CommandInput from './components/CommandInput';
 import Header from './components/Header';
 import Controls from './components/Controls';
-import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
 
 const defaultTheme = createTheme();
 function App() {
@@ -15,13 +15,14 @@ function App() {
         component="main"
         sx={{ backgroundColor: defaultTheme.palette.grey[100], overflow: 'auto' }}
       >
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <CommandInput />
-        </Container>
-        <Divider />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}> */}
+        <Stack spacing={2}>
+          <Paper>
+            <CommandInput />
+          </Paper>
           <Controls />
-        </Container>
+        </Stack>
+        {/* </Container> */}
       </Box>
     </>
   );
