@@ -7,6 +7,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { useState } from 'react';
+import Button from '@mui/material/Button';
 
 export default function Controls() {
   const [urlState, setUrlState] = useRecoilState(url);
@@ -39,6 +40,18 @@ export default function Controls() {
         margin="normal"
         value={urlState}
       />
+      <div style={{ display: 'inline' }}>
+        <TextField
+          variant="outlined"
+          label="name"
+          fullWidth
+          multiline
+          size="small"
+          margin="normal"
+          value={optionState.output || ''}
+        />
+        <Button>选择目录</Button>
+      </div>
       <TextField
         variant="outlined"
         label="Cookies"
