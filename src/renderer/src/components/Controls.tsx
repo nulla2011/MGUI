@@ -20,6 +20,7 @@ export default function Controls() {
       </Typography>
       <FormGroup row>
         <FormControlLabel
+          sx={{ userSelect: 'none' }}
           control={
             <Switch
               checked={liveState}
@@ -40,17 +41,20 @@ export default function Controls() {
         margin="normal"
         value={urlState}
       />
-      <div style={{ display: 'inline' }}>
+      <div style={{ display: 'flex' }}>
         <TextField
           variant="outlined"
-          label="name"
+          label="Name"
           fullWidth
           multiline
           size="small"
           margin="normal"
+          sx={{ flex: '1' }}
           value={optionState.output || ''}
         />
-        <Button>选择目录</Button>
+        <Button variant="contained" sx={{ mt: '16px', mb: '8px' }}>
+          选择目录
+        </Button>
       </div>
       <TextField
         variant="outlined"
