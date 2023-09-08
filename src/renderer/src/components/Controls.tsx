@@ -52,7 +52,7 @@ export default function Controls() {
           sx={{ flex: '1' }}
           value={optionState.output || ''}
         />
-        <Button variant="contained" sx={{ mt: '16px', mb: '8px' }}>
+        <Button variant="contained" sx={{ mt: '16px', mb: '8px', height: '36.5px' }}>
           选择目录
         </Button>
       </div>
@@ -74,6 +74,9 @@ export default function Controls() {
         margin="normal"
         value={optionState.key || ''}
       />
+      <Button variant="contained" sx={{ mt: '16px', mb: '8px' }}>
+        开始下载
+      </Button>
     </Box>
   );
 }
