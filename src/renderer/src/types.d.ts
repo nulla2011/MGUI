@@ -21,3 +21,11 @@ declare interface ArchiveDownloaderConfig extends DownloaderConfig {
 }
 
 declare interface LiveDownloaderConfig extends DownloaderConfig {}
+
+declare interface FrontOptions {
+  output?: string;
+  key?: string;
+  cookies?: string;
+  headers?: string | string[];
+  slice?: string;
+}

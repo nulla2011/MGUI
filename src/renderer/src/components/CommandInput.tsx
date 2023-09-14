@@ -5,21 +5,22 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { options, url } from '@renderer/store/params';
 import parser from 'yargs-parser';
+import { pick } from 'lodash-es';
+import { frontOptions, url } from '@renderer/store/params';
 
 export default function CommandInput() {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
   const setUrl = useSetRecoilState(url);
-  const setOptions = useSetRecoilState(options);
+  const setOptions = useSetRecoilState(frontOptions);
   const handleClick = () => {
     const params = parser(inputValue);
     if ((params['_'][0] as string).toLowerCase() !== 'minyami' || (!params.d && !params.download)) {
       setError(true);
     } else {
       setUrl(params.download || params.d);
-      setOptions(params as ArchiveDownloaderConfig);
+      setOptions(pick(params, ['output', 'cookies', 'key', 'headers', 'slice']) as FrontOptions);
     }
   };
   return (
@@ -35,7 +36,7 @@ export default function CommandInput() {
         <Button variant="text" onClick={handleClick}>
           编辑
         </Button>
-        <Button variant="text">下载</Button>
+        {/* <Button variant="text">下载</Button> */}
         <Snackbar
           open={error}
           message="不是有效的命令"
