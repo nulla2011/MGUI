@@ -7,11 +7,18 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
-import { createTheme } from '@mui/material/styles';
+// import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { frontOptions, url } from '@renderer/store/params';
 
 export default function Controls() {
-  const defaultTheme = createTheme();
+  // const defaultTheme = createTheme();
+  // const buttonTheme = createTheme({
+  //   palette: {
+  //     primary: {
+  //       main: defaultTheme.palette.primary.light
+  //     }
+  //   }
+  // });
   const [urlState, setUrlState] = useRecoilState(url);
   const [optionState, setOptionState] = useRecoilState(frontOptions);
   const [liveState, setLiveState] = useState(false);
@@ -57,12 +64,11 @@ export default function Controls() {
           onChange={(event) => setOptionState({ ...optionState, output: event.target.value })}
         />
         <Button
-          variant="contained"
+          variant="outlined"
           sx={{
             mt: '16px',
             mb: '8px',
-            height: '36.5px',
-            backgroundColor: defaultTheme.palette.primary.light
+            height: '40px'
           }}
         >
           选择目录
@@ -76,6 +82,7 @@ export default function Controls() {
         size="small"
         margin="normal"
         value={optionState.cookies || ''}
+        onChange={(event) => setOptionState({ ...optionState, cookies: event.target.value })}
       />
       <TextField
         variant="outlined"
@@ -85,6 +92,7 @@ export default function Controls() {
         size="small"
         margin="normal"
         value={optionState.key || ''}
+        onChange={(event) => setOptionState({ ...optionState, key: event.target.value })}
       />
       {/* <Button variant="contained" sx={{ mt: '16px', mb: '8px' }}>
         开始下载
