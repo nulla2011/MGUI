@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 import CommandInput from './components/CommandInput';
 import Header from './components/Header';
-import Controls from './components/Controls';
+import Form from './components/Form';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -31,7 +31,7 @@ function App() {
               <Divider />
               <Paper>
                 <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
-                  <Controls />
+                  <Form />
                 </Container>
               </Paper>
             </Stack>
