@@ -11,3 +11,9 @@ export const removeQuoteMarkPair = (input: string) => {
     return input;
   }
 };
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const nextTick = () => {
+  return new Promise<void>((resolve) => {
+    setTimeout(resolve, 0);
+  });
+};

@@ -96,22 +96,27 @@ export default function Controls() {
         value={optionState.key || ''}
         onChange={(event) => setOptionState({ ...optionState, key: event.target.value })}
       />
-      <FormGroup row>
-        <FormControlLabel
-          sx={{ userSelect: 'none' }}
-          disabled={liveState}
-          control={
-            <Switch
-              checked={sliceSwitch}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setSliceSwitch(event.target.checked)
-              }
-            />
-          }
-          label="裁剪"
-        />
-      </FormGroup>
-      {sliceSwitch && <Slice />}
+
+      <Box sx={{ display: 'flex', mt: 2, mb: 1 }}>
+        <FormGroup row sx={{ height: 40, mr: 4 }}>
+          <FormControlLabel
+            sx={{ userSelect: 'none' }}
+            disabled={liveState}
+            control={
+              <Switch
+                checked={sliceSwitch}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setSliceSwitch(event.target.checked)
+                }
+              />
+            }
+            label="裁剪"
+          />
+        </FormGroup>
+        {sliceSwitch && !liveState && (
+          <Slice onUpdate={(value: string) => setOptionState({ ...optionState, slice: value })} />
+        )}
+      </Box>
       {/* <Button variant="contained" sx={{ mt: '16px', mb: '8px' }}>
         开始下载
       </Button> */}

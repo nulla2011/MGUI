@@ -9,10 +9,12 @@ import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import Fab from '@mui/material/Fab';
 import DownloadIcon from '@mui/icons-material/Download';
-import { RecoilRoot } from 'recoil';
+import { useRecoilState } from 'recoil';
+import { frontOptions } from './store/params';
 
 const defaultTheme = createTheme();
 function App() {
+  const [optionState] = useRecoilState(frontOptions);
   return (
     <>
       <Header />
@@ -21,24 +23,27 @@ function App() {
         sx={{ backgroundColor: defaultTheme.palette.grey[100], overflow: 'auto' }}
       >
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <RecoilRoot>
-            <Stack spacing={2}>
-              <Paper>
-                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                  <CommandInput />
-                </Container>
-              </Paper>
-              <Divider />
-              <Paper>
-                <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
-                  <Form />
-                </Container>
-              </Paper>
-            </Stack>
-          </RecoilRoot>
+          <Stack spacing={2}>
+            <Paper>
+              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <CommandInput />
+              </Container>
+            </Paper>
+            <Divider />
+            <Paper>
+              <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
+                <Form />
+              </Container>
+            </Paper>
+          </Stack>
         </Container>
       </Box>
-      <Fab color="primary" variant="extended" sx={{ position: 'fixed', bottom: 16, right: 16 }}>
+      <Fab
+        color="primary"
+        variant="extended"
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        onClick={() => console.log(optionState)}
+      >
         <DownloadIcon sx={{ mr: 1 }} />
         下载
       </Fab>

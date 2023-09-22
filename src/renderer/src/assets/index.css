@@ -2,16 +2,20 @@ body {
   display: flex;
   flex-direction: column;
   font-family:
-    Roboto,
+    'Monospaced Number',
+    'Chinese Quote',
     -apple-system,
     BlinkMacSystemFont,
-    'Helvetica Neue',
     'Segoe UI',
-    'Oxygen',
-    'Ubuntu',
-    'Cantarell',
-    'Open Sans',
+    Roboto,
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
     sans-serif;
+  font-variant: tabular-nums;
   color: #86a5b1;
 }
 
