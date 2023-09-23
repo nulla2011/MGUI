@@ -26,6 +26,6 @@ declare interface FrontOptions {
   output?: string;
   key?: string;
   cookies?: string;
-  headers?: string | string[];
+  headers?: string[];
   slice?: string;
 }

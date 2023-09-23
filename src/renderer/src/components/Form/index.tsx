@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { frontOptions, url } from '@renderer/store/params';
 import Slice from './Slice';
+import Headers from './Headers';
 
 export default function Controls() {
   // const defaultTheme = createTheme();
@@ -48,6 +49,7 @@ export default function Controls() {
         label="URL"
         fullWidth
         multiline
+        maxRows={3}
         size="small"
         margin="normal"
         value={urlState}
@@ -59,6 +61,7 @@ export default function Controls() {
           label="Name"
           fullWidth
           multiline
+          maxRows={3}
           size="small"
           margin="normal"
           sx={{ flex: '1' }}
@@ -81,6 +84,7 @@ export default function Controls() {
         label="Cookies"
         fullWidth
         multiline
+        maxRows={3}
         size="small"
         margin="normal"
         value={optionState.cookies || ''}
@@ -91,6 +95,7 @@ export default function Controls() {
         label="KEY"
         fullWidth
         multiline
+        maxRows={3}
         size="small"
         margin="normal"
         value={optionState.key || ''}
@@ -117,6 +122,7 @@ export default function Controls() {
           <Slice onUpdate={(value: string) => setOptionState({ ...optionState, slice: value })} />
         )}
       </Box>
+      <Headers />
       {/* <Button variant="contained" sx={{ mt: '16px', mb: '8px' }}>
         开始下载
       </Button> */}

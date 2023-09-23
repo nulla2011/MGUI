@@ -20,7 +20,29 @@ export default function CommandInput() {
       setError(true);
     } else {
       setUrl(params.download || params.d);
-      setOptions(pick(params, ['output', 'cookies', 'key', 'headers', 'slice']) as FrontOptions);
+      const options = pick(params, ['output', 'o', 'cookies', 'key', 'headers', 'H', 'slice']);
+      if (!options.output && options.o) {
+        options.output = options.o;
+        delete options.o;
+      }
+      if (options.headers && !Array.isArray(options.headers)) {
+        options.headers = [options.headers];
+      }
+      if (options.H) {
+        if (!Array.isArray(options.H)) {
+          options.H = [options.H];
+        }
+        options.headers = options.headers.concat(options.H);
+        delete options.H;
+      }
+      const list: unknown[] = [];
+      for (const header of options.headers) {
+        header.split('\\n').forEach((h) => {
+          list.push(h);
+        });
+      }
+      options.headers = list;
+      setOptions(options as FrontOptions);
     }
   };
   return (

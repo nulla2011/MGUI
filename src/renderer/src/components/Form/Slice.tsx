@@ -1,5 +1,6 @@
 import { forwardRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { IMask, IMaskInput } from 'react-imask';
 import c from './Slice.module.css';
 
@@ -48,7 +49,7 @@ export default function Slice({ onUpdate }: { onUpdate: (value: string) => void 
   return (
     <>
       <span className={c.half}>
-        <span className={c.text}>从:</span>
+        <Typography>从:</Typography>
         <TextField
           size="small"
           sx={{ mx: 1.5 }}
@@ -60,7 +61,7 @@ export default function Slice({ onUpdate }: { onUpdate: (value: string) => void 
         />
       </span>
       <span className={c.half}>
-        <span className={c.text}>到:</span>
+        <Typography>到:</Typography>
         <TextField
           size="small"
           sx={{ mx: 1.5 }}
