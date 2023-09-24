@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil';
 const defaultTheme = createTheme();
 export default function Headers() {
   const [options, setOptions] = useRecoilState(frontOptions);
-  console.log(options);
   return (
     <Box sx={{ backgroundColor: defaultTheme.palette.grey[100] }}>
       <Container maxWidth="lg" sx={{ mt: 2, mb: 2, pt: 2, pb: 2 }}>

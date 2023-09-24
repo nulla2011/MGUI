@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useRecoilState } from 'recoil';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -8,9 +8,45 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { frontOptions, url } from '@renderer/store/params';
+import { frontOptions, frontOptionsSelector, url } from '@renderer/store/params';
 import Slice from './Slice';
 import Headers from './Headers';
+
+const UrlInput = memo(function UrlInput() {
+  const [urlState, setUrlState] = useRecoilState(url);
+  return (
+    <TextField
+      variant="outlined"
+      label="M3U8 地址"
+      fullWidth
+      multiline
+      maxRows={3}
+      size="small"
+      margin="normal"
+      value={urlState}
+      onChange={(event) => setUrlState(event.target.value)}
+    />
+  );
+});
+const KeyInput = function KeyInput() {
+  const [keyState, setKeyState] = useRecoilState(frontOptionsSelector('key'));
+  return (
+    <TextField
+      variant="outlined"
+      label="KEY"
+      fullWidth
+      multiline
+      maxRows={3}
+      size="small"
+      margin="normal"
+      value={keyState || ''}
+      onChange={(event) => {
+        setKeyState(event.target.value);
+        console.log(keyState);
+      }}
+    />
+  );
+};
 
 export default function Controls() {
   // const defaultTheme = createTheme();
@@ -21,7 +57,6 @@ export default function Controls() {
   //     }
   //   }
   // });
-  const [urlState, setUrlState] = useRecoilState(url);
   const [optionState, setOptionState] = useRecoilState(frontOptions);
   const [liveState, setLiveState] = useState(false);
   const [sliceSwitch, setSliceSwitch] = useState(false);
@@ -44,21 +79,12 @@ export default function Controls() {
           label="直播模式"
         />
       </FormGroup>
-      <TextField
-        variant="outlined"
-        label="URL"
-        fullWidth
-        multiline
-        maxRows={3}
-        size="small"
-        margin="normal"
-        value={urlState}
-        onChange={(event) => setUrlState(event.target.value)}
-      />
+      <UrlInput />
+
       <div style={{ display: 'flex' }}>
         <TextField
           variant="outlined"
-          label="Name"
+          label="存储路径"
           fullWidth
           multiline
           maxRows={3}
@@ -90,18 +116,7 @@ export default function Controls() {
         value={optionState.cookies || ''}
         onChange={(event) => setOptionState({ ...optionState, cookies: event.target.value })}
       />
-      <TextField
-        variant="outlined"
-        label="KEY"
-        fullWidth
-        multiline
-        maxRows={3}
-        size="small"
-        margin="normal"
-        value={optionState.key || ''}
-        onChange={(event) => setOptionState({ ...optionState, key: event.target.value })}
-      />
-
+      <KeyInput />
       <Box sx={{ display: 'flex', mt: 2, mb: 1 }}>
         <FormGroup row sx={{ height: 40, mr: 4 }}>
           <FormControlLabel
