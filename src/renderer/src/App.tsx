@@ -9,12 +9,25 @@ import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import Fab from '@mui/material/Fab';
 import DownloadIcon from '@mui/icons-material/Download';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { frontOptions } from './store/params';
 
 const defaultTheme = createTheme();
+function DL() {
+  const optionState = useRecoilValue(frontOptions);
+  return (
+    <Fab
+      color="primary"
+      variant="extended"
+      sx={{ position: 'fixed', bottom: 16, right: 16 }}
+      onClick={() => console.log(optionState)}
+    >
+      <DownloadIcon sx={{ mr: 1 }} />
+      下载
+    </Fab>
+  );
+}
 function App() {
-  const [optionState] = useRecoilState(frontOptions);
   return (
     <>
       <Header />
@@ -38,15 +51,7 @@ function App() {
           </Stack>
         </Container>
       </Box>
-      <Fab
-        color="primary"
-        variant="extended"
-        sx={{ position: 'fixed', bottom: 16, right: 16 }}
-        onClick={() => console.log(optionState)}
-      >
-        <DownloadIcon sx={{ mr: 1 }} />
-        下载
-      </Fab>
+      <DL />
     </>
   );
 }

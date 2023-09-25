@@ -7,41 +7,40 @@ import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import parser from 'yargs-parser';
 import { pick } from 'lodash-es';
-import { frontOptions, url } from '@renderer/store/params';
+import { frontOptions, headers, url } from '@renderer/store/params';
 
 export default function CommandInput() {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
   const setUrl = useSetRecoilState(url);
   const setOptions = useSetRecoilState(frontOptions);
+  const setHeaders = useSetRecoilState(headers);
   const handleClick = () => {
     const params = parser(inputValue);
     if ((params['_'][0] as string).toLowerCase() !== 'minyami' || (!params.d && !params.download)) {
       setError(true);
     } else {
       setUrl(params.download || params.d);
-      const options = pick(params, ['output', 'o', 'cookies', 'key', 'headers', 'H', 'slice']);
+      const options = pick(params, ['output', 'o', 'cookies', 'key', 'slice']);
       if (!options.output && options.o) {
         options.output = options.o;
         delete options.o;
       }
-      if (options.headers && !Array.isArray(options.headers)) {
-        options.headers = [options.headers];
+      let headerArray: string[] = [];
+      if (params.headers) {
+        headerArray = headerArray.concat(params.headers);
       }
-      if (options.H) {
-        if (!Array.isArray(options.H)) {
-          options.H = [options.H];
-        }
-        options.headers = options.headers.concat(options.H);
-        delete options.H;
+      if (params.H) {
+        headerArray = headerArray.concat(params.H);
       }
-      const list: unknown[] = [];
-      for (const header of options.headers) {
-        header.split('\\n').forEach((h) => {
-          list.push(h);
-        });
-      }
-      options.headers = list;
+      setHeaders(
+        headerArray.reduce((p: string[], c) => {
+          c.split('\\n').forEach((h) => {
+            p.push(h);
+          });
+          return p;
+        }, [])
+      );
       setOptions(options as FrontOptions);
     }
   };

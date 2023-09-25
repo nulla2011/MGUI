@@ -8,7 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { frontOptions, frontOptionsSelector, url } from '@renderer/store/params';
+import { frontOptions, url } from '@renderer/store/params';
 import Slice from './Slice';
 import Headers from './Headers';
 
@@ -28,25 +28,9 @@ const UrlInput = memo(function UrlInput() {
     />
   );
 });
-const KeyInput = function KeyInput() {
-  const [keyState, setKeyState] = useRecoilState(frontOptionsSelector('key'));
-  return (
-    <TextField
-      variant="outlined"
-      label="KEY"
-      fullWidth
-      multiline
-      maxRows={3}
-      size="small"
-      margin="normal"
-      value={keyState || ''}
-      onChange={(event) => {
-        setKeyState(event.target.value);
-        console.log(keyState);
-      }}
-    />
-  );
-};
+function Options() {
+  return;
+}
 
 export default function Controls() {
   // const defaultTheme = createTheme();
@@ -116,7 +100,19 @@ export default function Controls() {
         value={optionState.cookies || ''}
         onChange={(event) => setOptionState({ ...optionState, cookies: event.target.value })}
       />
-      <KeyInput />
+      <TextField
+        variant="outlined"
+        label="KEY"
+        fullWidth
+        multiline
+        maxRows={3}
+        size="small"
+        margin="normal"
+        value={optionState.key || ''}
+        onChange={(event) => {
+          setOptionState({ ...optionState, key: event.target.value });
+        }}
+      />
       <Box sx={{ display: 'flex', mt: 2, mb: 1 }}>
         <FormGroup row sx={{ height: 40, mr: 4 }}>
           <FormControlLabel
