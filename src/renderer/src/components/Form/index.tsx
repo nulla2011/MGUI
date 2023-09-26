@@ -7,7 +7,6 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
-// import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { frontOptions, url } from '@renderer/store/params';
 import Slice from './Slice';
 import Headers from './Headers';
@@ -28,43 +27,11 @@ const UrlInput = memo(function UrlInput() {
     />
   );
 });
-function Options() {
-  return;
-}
-
-export default function Controls() {
-  // const defaultTheme = createTheme();
-  // const buttonTheme = createTheme({
-  //   palette: {
-  //     primary: {
-  //       main: defaultTheme.palette.primary.light
-  //     }
-  //   }
-  // });
+function Options({ isLive }: { isLive: boolean }) {
   const [optionState, setOptionState] = useRecoilState(frontOptions);
-  const [liveState, setLiveState] = useState(false);
   const [sliceSwitch, setSliceSwitch] = useState(false);
   return (
-    <Box>
-      <Typography component="h2" gutterBottom>
-        或者直接填写：
-      </Typography>
-      <FormGroup row>
-        <FormControlLabel
-          sx={{ userSelect: 'none' }}
-          control={
-            <Switch
-              checked={liveState}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setLiveState(event.target.checked)
-              }
-            />
-          }
-          label="直播模式"
-        />
-      </FormGroup>
-      <UrlInput />
-
+    <>
       <div style={{ display: 'flex' }}>
         <TextField
           variant="outlined"
@@ -117,7 +84,7 @@ export default function Controls() {
         <FormGroup row sx={{ height: 40, mr: 4 }}>
           <FormControlLabel
             sx={{ userSelect: 'none' }}
-            disabled={liveState}
+            disabled={isLive}
             control={
               <Switch
                 checked={sliceSwitch}
@@ -129,14 +96,46 @@ export default function Controls() {
             label="裁剪"
           />
         </FormGroup>
-        {sliceSwitch && !liveState && (
+        {sliceSwitch && !isLive && (
           <Slice onUpdate={(value: string) => setOptionState({ ...optionState, slice: value })} />
         )}
       </Box>
+    </>
+  );
+}
+
+export default function Controls() {
+  // const defaultTheme = createTheme();
+  // const buttonTheme = createTheme({
+  //   palette: {
+  //     primary: {
+  //       main: defaultTheme.palette.primary.light
+  //     }
+  //   }
+  // });
+  const [liveState, setLiveState] = useState(false);
+  return (
+    <Box>
+      <Typography component="h2" gutterBottom>
+        或者直接填写：
+      </Typography>
+      <FormGroup row>
+        <FormControlLabel
+          sx={{ userSelect: 'none' }}
+          control={
+            <Switch
+              checked={liveState}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setLiveState(event.target.checked)
+              }
+            />
+          }
+          label="直播模式"
+        />
+      </FormGroup>
+      <UrlInput />
+      <Options isLive={liveState} />
       <Headers />
-      {/* <Button variant="contained" sx={{ mt: '16px', mb: '8px' }}>
-        开始下载
-      </Button> */}
     </Box>
   );
 }

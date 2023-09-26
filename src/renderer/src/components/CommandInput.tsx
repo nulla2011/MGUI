@@ -34,9 +34,9 @@ export default function CommandInput() {
         headerArray = headerArray.concat(params.H);
       }
       setHeaders(
-        headerArray.reduce((p: string[], c) => {
+        headerArray.reduce((p: string[][], c) => {
           c.split('\\n').forEach((h) => {
-            p.push(h);
+            p.push(h.split(':').map((t) => t.trim()));
           });
           return p;
         }, [])
