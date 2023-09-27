@@ -7,6 +7,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import { frontOptions, url } from '@renderer/store/params';
 import Slice from './Slice';
 import Headers from './Headers';
@@ -46,7 +47,7 @@ function Options({ isLive }: { isLive: boolean }) {
           onChange={(event) => setOptionState({ ...optionState, output: event.target.value })}
         />
         <Button
-          variant="outlined"
+          variant="contained"
           sx={{
             mt: '16px',
             mb: '8px',
@@ -135,6 +136,7 @@ export default function Controls() {
       </FormGroup>
       <UrlInput />
       <Options isLive={liveState} />
+      <Divider />
       <Headers />
     </Box>
   );
