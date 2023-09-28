@@ -59,7 +59,7 @@ function Options({ isLive }: { isLive: boolean }) {
       </div>
       <TextField
         variant="outlined"
-        label="Cookies"
+        label="Cookie"
         fullWidth
         multiline
         maxRows={3}

@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import InputIcon from '@mui/icons-material/Input';
 import { createTheme } from '@mui/material/styles';
 import { useRecoilState } from 'recoil';
 import { headers } from '@renderer/store/params';
@@ -33,15 +34,22 @@ export default function Headers() {
       <Typography>请求头：</Typography>
       <Box sx={{ backgroundColor: defaultTheme.palette.grey[100] }}>
         <Container maxWidth="lg" sx={{ mt: 2, mb: 2, pt: 2, pb: 2 }}>
+          <Box sx={{ display: 'flex', gap: 1.5, mb: 0.5 }}>
+            <Typography sx={{ width: 180 }}>Name</Typography>
+            <Typography>Value</Typography>
+          </Box>
           {headersState.map((header, index) => {
             return (
-              <Box key={index} sx={{ display: 'flex', gap: 1, alignItems: 'flex-start', mb: 2 }}>
+              <Box
+                key={index}
+                sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-start', mb: 1.5 }}
+              >
                 <Autocomplete
                   freeSolo
                   options={headerSuggestion}
                   size="small"
                   renderInput={(params) => <TextField {...params} />}
-                  sx={{ width: 250, backgroundColor: '#fff' }}
+                  sx={{ width: 180, backgroundColor: '#fff' }}
                   inputValue={header[0]}
                   value={header[0]}
                   onInputChange={(_event, newValue) => {
@@ -51,11 +59,10 @@ export default function Headers() {
                   }}
                 />
                 <TextField
-                  fullWidth
                   multiline
                   maxRows={3}
                   size="small"
-                  sx={{ backgroundColor: '#fff' }}
+                  sx={{ backgroundColor: '#fff', flex: 1 }}
                   value={header[1]}
                   onChange={(event) =>
                     setHeadersState(
@@ -75,10 +82,14 @@ export default function Headers() {
           })}
           <Button
             variant="contained"
+            sx={{ mr: 3 }}
             onClick={() => setHeadersState(headersState.concat([['', '']]))}
           >
             <AddIcon sx={{ mr: 1 }} />
             添加
+          </Button>
+          <Button sx={{ textTransform: 'none' }}>
+            <InputIcon sx={{ mr: 1 }} />从 cURL 命令导入
           </Button>
         </Container>
       </Box>

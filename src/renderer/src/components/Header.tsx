@@ -6,6 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Header() {
   return (
@@ -16,12 +17,16 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
-          <IconButton size="large" color="inherit">
-            <ArticleIcon />
-          </IconButton>
-          <IconButton size="large" color="inherit">
-            <SettingsIcon />
-          </IconButton>
+          <Tooltip title="日志">
+            <IconButton size="large" color="inherit">
+              <ArticleIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="设置">
+            <IconButton size="large" color="inherit">
+              <SettingsIcon />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
     </Box>
