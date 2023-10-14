@@ -41,7 +41,7 @@ export default function CommandInput() {
           return p;
         }, [])
       );
-      setOptions(options as FrontOptions);
+      setOptions(options as IFrontOptions);
     }
   };
   return (

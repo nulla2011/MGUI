@@ -11,7 +11,7 @@ import Settings from './Settings';
 import { useState } from 'react';
 
 export default function Header() {
-  const [isOpen, setOpen] = useState(false);
+  const [isSettingsOpen, setSettingsOpen] = useState(false);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -27,14 +27,14 @@ export default function Header() {
               </IconButton>
             </Tooltip>
             <Tooltip title="设置">
-              <IconButton size="large" color="inherit" onClick={() => setOpen(true)}>
+              <IconButton size="large" color="inherit" onClick={() => setSettingsOpen(true)}>
                 <SettingsIcon />
               </IconButton>
             </Tooltip>
           </Toolbar>
         </AppBar>
       </Box>
-      <Settings open={isOpen} />
+      <Settings open={isSettingsOpen} close={() => setSettingsOpen(false)} />
     </>
   );
 }

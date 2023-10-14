@@ -22,9 +22,19 @@ declare interface ArchiveDownloaderConfig extends DownloaderConfig {
 
 declare interface LiveDownloaderConfig extends DownloaderConfig {}
 
-declare interface FrontOptions {
+interface IFrontOptions {
   output?: string;
   key?: string;
   cookies?: string;
   slice?: string;
+}
+
+interface Isettings {
+  threads?: number;
+  tempDir?: string;
+  verbose?: boolean;
+  retries?: number;
+  proxy?: string;
+  noMerge?: boolean;
+  keep?: boolean;
 }
