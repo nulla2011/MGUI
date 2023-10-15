@@ -2,11 +2,11 @@ import Dialogue from '@mui/material/Dialog';
 import DialogueTitle from '@mui/material/DialogTitle';
 import DialogueContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
-import { settings } from '../../store/params';
+import { isProxy, settings } from '../../store/params';
 import { useRecoilState } from 'recoil';
 import Switch from '@mui/material/Switch';
-import { FormControlLabel, List, ListItem } from '@mui/material';
-import React, { useState } from 'react';
+import { Checkbox, FormControlLabel, FormGroup, List, ListItem } from '@mui/material';
+import React from 'react';
 import Input from '@mui/material/Input';
 
 interface props {
@@ -15,7 +15,7 @@ interface props {
 }
 export default function Settings({ open, close }: props) {
   const [settingState, setSettingState] = useRecoilState(settings);
-  const [enableProxy, setEnableProxy] = useState(false);
+  const [enableProxy, setEnableProxy] = useRecoilState(isProxy);
   return (
     <Dialogue open={open} onClose={close}>
       <DialogueTitle>设置</DialogueTitle>
@@ -47,9 +47,46 @@ export default function Settings({ open, close }: props) {
           </ListItem>
           {enableProxy && (
             <ListItem>
-              <Input placeholder="[protocol]HOST" />
+              <Input placeholder="protocol://<host>:<port>" />
             </ListItem>
           )}
+          <ListItem>
+            <TextField
+              variant="outlined"
+              label="重试次数"
+              type="number"
+              value={settingState.retries}
+              onChange={(event) =>
+                setSettingState({ ...settingState, retries: parseInt(event.target.value) })
+              }
+            />
+          </ListItem>
+          <ListItem>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={settingState.noMerge}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      setSettingState({ ...settingState, noMerge: event.target.checked })
+                    }
+                  />
+                }
+                label="不合并分块"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={settingState.keep}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      setSettingState({ ...settingState, keep: event.target.checked })
+                    }
+                  />
+                }
+                label="合并后保留分块"
+              />
+            </FormGroup>
+          </ListItem>
         </List>
       </DialogueContent>
     </Dialogue>
