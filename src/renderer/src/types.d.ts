@@ -37,4 +37,5 @@ interface Isettings {
   proxy?: string;
   noMerge?: boolean;
   keep?: boolean;
+  keepEncryptedChunks?: boolean;
 }

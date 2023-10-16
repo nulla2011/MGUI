@@ -85,6 +85,20 @@ export default function Settings({ open, close }: props) {
                 }
                 label="合并后保留分块"
               />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={settingState.keepEncryptedChunks}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      setSettingState({
+                        ...settingState,
+                        keepEncryptedChunks: event.target.checked
+                      })
+                    }
+                  />
+                }
+                label="保留解密后的分块"
+              />
             </FormGroup>
           </ListItem>
         </List>
