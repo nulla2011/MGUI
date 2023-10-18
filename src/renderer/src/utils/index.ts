@@ -17,3 +17,4 @@ export const nextTick = () => {
     setTimeout(resolve, 0);
   });
 };
+export const replaceStatusValue = (status, key: string, value: unknown) => {};

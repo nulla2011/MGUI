@@ -17,7 +17,6 @@ function DL() {
   const optionState = useRecoilValue(frontOptions);
   return (
     <Fab
-      color="success"
       variant="extended"
       sx={{ position: 'fixed', bottom: 16, right: 16 }}
       onClick={() => console.log(optionState)}
