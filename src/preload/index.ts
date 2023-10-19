@@ -3,7 +3,8 @@ import { electronAPI } from '@electron-toolkit/preload';
 
 // Custom APIs for renderer
 const api = {
-  formSelectPath: () => ipcRenderer.invoke('form-select-path')
+  formSelectPath: () => ipcRenderer.invoke('form:select-path'),
+  getSettings: () => ipcRenderer.invoke('get-settings')
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -44,13 +44,3 @@ interface Window {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   api: any;
 }
-
-declare module '@mui/material/styles' {
-  interface Palette {
-    pink: Palette['primary'];
-  }
-
-  interface PaletteOptions {
-    pink?: PaletteOptions['primary'];
-  }
-}

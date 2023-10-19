@@ -1,4 +1,14 @@
 import { createTheme } from '@mui/material/styles';
+declare module '@mui/material/styles' {
+  interface Palette {
+    pink: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    pink?: PaletteOptions['primary'];
+  }
+}
+
 export default createTheme({
   typography: {
     fontFamily:
@@ -6,7 +16,8 @@ export default createTheme({
   },
   palette: {
     pink: {
-      main: '#ee98aa'
+      main: '#FF6798',
+      dark: '#FD4580'
     }
   }
   // shape: {

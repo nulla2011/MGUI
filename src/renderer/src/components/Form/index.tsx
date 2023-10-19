@@ -5,13 +5,14 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FolderOpen from '@mui/icons-material/FolderOpen';
 import Switch from '@mui/material/Switch';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import { frontOptions, url } from '@renderer/store/params';
 import Slice from './Slice';
 import Headers from './Headers';
-import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
 
 const UrlInput = memo(function UrlInput() {
   const [urlState, setUrlState] = useRecoilState(url);
@@ -57,13 +58,13 @@ function Options({ isLive }: { isLive: boolean }) {
         margin="normal"
         sx={{ flex: '1' }}
         value={path}
-        onChange={(event) => setOptionState({ ...optionState, output: event.target.value })}
+        onChange={(event) => setPath(event.target.value)}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <Button
-                variant="contained"
-                size="small"
+              <IconButton
+                // variant="contained"
+                // size="small"
                 // sx={{
                 //   mt: '16px',
                 //   mb: '8px',
@@ -76,8 +77,8 @@ function Options({ isLive }: { isLive: boolean }) {
                   }
                 }}
               >
-                选择目录
-              </Button>
+                <FolderOpen />
+              </IconButton>
             </InputAdornment>
           )
         }}

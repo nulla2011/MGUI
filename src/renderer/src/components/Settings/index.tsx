@@ -1,12 +1,22 @@
+import React from 'react';
 import Dialogue from '@mui/material/Dialog';
 import DialogueTitle from '@mui/material/DialogTitle';
 import DialogueContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
-import { isProxy, settings } from '../../store/params';
+import { settings } from '@renderer/store/params';
+import { isProxy, defaultPath } from '@renderer/store/settings';
 import { useRecoilState } from 'recoil';
 import Switch from '@mui/material/Switch';
-import { Checkbox, FormControlLabel, FormGroup, List, ListItem } from '@mui/material';
-import React from 'react';
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  IconButton,
+  InputAdornment,
+  List,
+  ListItem
+} from '@mui/material';
+import FolderOpen from '@mui/icons-material/FolderOpen';
 import Input from '@mui/material/Input';
 
 interface props {
@@ -16,6 +26,7 @@ interface props {
 export default function Settings({ open, close }: props) {
   const [settingState, setSettingState] = useRecoilState(settings);
   const [enableProxy, setEnableProxy] = useRecoilState(isProxy);
+  const [defaultPathState, setDefaultPathState] = useRecoilState(defaultPath);
   return (
     <Dialogue open={open} onClose={close}>
       <DialogueTitle>设置</DialogueTitle>
@@ -53,12 +64,62 @@ export default function Settings({ open, close }: props) {
           <ListItem>
             <TextField
               variant="outlined"
+              label="默认路径"
+              value={defaultPathState}
+              onChange={(event) => setDefaultPathState(event.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={async () => {
+                        const p = await window.api.formSelectPath();
+                        if (p.filePaths.length > 0) {
+                          setDefaultPathState(p.filePaths[0]);
+                        }
+                      }}
+                    >
+                      <FolderOpen />
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              variant="outlined"
               label="重试次数"
               type="number"
               value={settingState.retries}
               onChange={(event) =>
                 setSettingState({ ...settingState, retries: parseInt(event.target.value) })
               }
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              variant="outlined"
+              label="临时文件夹路径"
+              value={settingState.tempDir || ''}
+              onChange={(event) =>
+                setSettingState({ ...settingState, tempDir: event.target.value })
+              }
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={async () => {
+                        const p = await window.api.formSelectPath();
+                        if (p.filePaths.length > 0) {
+                          setSettingState({ ...settingState, tempDir: p.filePaths[0] });
+                        }
+                      }}
+                    >
+                      <FolderOpen />
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
             />
           </ListItem>
           <ListItem>

@@ -5,7 +5,6 @@ export const options = atom<ArchiveDownloaderConfig>({ key: 'options', default: 
 export const frontOptions = atom<IFrontOptions>({ key: 'frontOptions', default: {} });
 export const headers = atom<string[][]>({ key: 'headers', default: [] });
 export const settings = atom<Isettings>({ key: 'settings', default: { threads: 5, retries: 5 } });
-export const isProxy = atom<boolean>({ key: 'isProxy', default: false });
 // export const frontOptionsSelector = selectorFamily({
 //   key: 'frontOptionsSelector',
 //   get:

@@ -9,14 +9,21 @@ import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import Fab from '@mui/material/Fab';
 import DownloadIcon from '@mui/icons-material/Download';
-import { useRecoilValue } from 'recoil';
-import { frontOptions } from './store/params';
-
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { frontOptions, settings } from './store/params';
+import { useEffect } from 'react';
+declare module '@mui/material/Fab' {
+  interface FabPropsColorOverrides {
+    pink: true;
+  }
+}
 const defaultTheme = createTheme();
+
 function DL() {
   const optionState = useRecoilValue(frontOptions);
   return (
     <Fab
+      color="pink"
       variant="extended"
       sx={{ position: 'fixed', bottom: 16, right: 16 }}
       onClick={() => console.log(optionState)}
@@ -27,6 +34,10 @@ function DL() {
   );
 }
 function App() {
+  const setSettings = useSetRecoilState(settings);
+  useEffect(() => {
+    window.api.getSettings().then((v) => setSettings(v));
+  }, []);
   return (
     <>
       <Header />

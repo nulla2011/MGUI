@@ -51,7 +51,9 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window);
   });
 
+  console.log(process.env.TEMP);
   createWindow();
+
   ipc();
 
   app.on('activate', function () {
