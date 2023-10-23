@@ -28,7 +28,7 @@ export default function Headers() {
   if (headersState.length === 0) {
     setHeadersState([['', '']]);
   }
-  console.table(headersState);
+  // console.table(headersState);
   return (
     <>
       <Typography>请求头：</Typography>

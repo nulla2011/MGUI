@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Dialogue from '@mui/material/Dialog';
 import DialogueTitle from '@mui/material/DialogTitle';
 import DialogueContent from '@mui/material/DialogContent';
+import DialogueActions from '@mui/material/DialogActions';
 import TextField from '@mui/material/TextField';
 import { settings } from '@renderer/store/params';
-import { isProxy, defaultPath } from '@renderer/store/settings';
 import { useRecoilState } from 'recoil';
 import Switch from '@mui/material/Switch';
 import {
+  Button,
   Checkbox,
   FormControlLabel,
   FormGroup,
@@ -24,9 +25,13 @@ interface props {
   close: () => void;
 }
 export default function Settings({ open, close }: props) {
-  const [settingState, setSettingState] = useRecoilState(settings);
-  const [enableProxy, setEnableProxy] = useRecoilState(isProxy);
-  const [defaultPathState, setDefaultPathState] = useRecoilState(defaultPath);
+  const [settingRecoilState, setSettingRecoilState] = useRecoilState(settings);
+  const [settingState, setSettingState] = useState(settingRecoilState);
+  useEffect(() => setSettingState(settingRecoilState), [settingRecoilState]);
+  const handleApply = () => {
+    setSettingRecoilState(settingState);
+    close();
+  };
   return (
     <Dialogue open={open} onClose={close}>
       <DialogueTitle>设置</DialogueTitle>
@@ -47,16 +52,16 @@ export default function Settings({ open, close }: props) {
             <FormControlLabel
               control={
                 <Switch
-                  checked={enableProxy}
+                  checked={settingState.enableProxy}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    setEnableProxy(event.target.checked)
+                    setSettingState({ ...settingState, enableProxy: event.target.checked })
                   }
                 />
               }
               label="使用代理"
             />
           </ListItem>
-          {enableProxy && (
+          {settingState.enableProxy && (
             <ListItem>
               <Input placeholder="protocol://<host>:<port>" />
             </ListItem>
@@ -65,8 +70,10 @@ export default function Settings({ open, close }: props) {
             <TextField
               variant="outlined"
               label="默认路径"
-              value={defaultPathState}
-              onChange={(event) => setDefaultPathState(event.target.value)}
+              value={settingState.defaultDownloadPath}
+              onChange={(event) =>
+                setSettingState({ ...settingState, defaultDownloadPath: event.target.value })
+              }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -74,7 +81,7 @@ export default function Settings({ open, close }: props) {
                       onClick={async () => {
                         const p = await window.api.formSelectPath();
                         if (p.filePaths.length > 0) {
-                          setDefaultPathState(p.filePaths[0]);
+                          setSettingState({ ...settingState, defaultDownloadPath: p.filePaths[0] });
                         }
                       }}
                     >
@@ -164,6 +171,11 @@ export default function Settings({ open, close }: props) {
           </ListItem>
         </List>
       </DialogueContent>
+      <DialogueActions>
+        <Button autoFocus onClick={handleApply}>
+          应用并保存
+        </Button>
+      </DialogueActions>
     </Dialogue>
   );
 }

@@ -38,6 +38,8 @@ interface Isettings {
   noMerge?: boolean;
   keep?: boolean;
   keepEncryptedChunks?: boolean;
+  defaultDownloadPath?: string;
+  enableProxy?: boolean;
 }
 
 interface Window {
