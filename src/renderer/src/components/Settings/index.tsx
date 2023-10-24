@@ -7,8 +7,8 @@ import TextField from '@mui/material/TextField';
 import { settings } from '@renderer/store/params';
 import { useRecoilState } from 'recoil';
 import Switch from '@mui/material/Switch';
+import Button from '@mui/material/Button';
 import {
-  Button,
   Checkbox,
   FormControlLabel,
   FormGroup,
@@ -33,13 +33,13 @@ export default function Settings({ open, close }: props) {
     close();
   };
   return (
-    <Dialogue open={open} onClose={close}>
+    <Dialogue open={open} onClose={close} fullWidth maxWidth="xs">
       <DialogueTitle>设置</DialogueTitle>
       <DialogueContent>
         <List>
           <ListItem>
             <TextField
-              variant="outlined"
+              variant="standard"
               label="线程数"
               type="number"
               value={settingState.threads}
@@ -63,12 +63,20 @@ export default function Settings({ open, close }: props) {
           </ListItem>
           {settingState.enableProxy && (
             <ListItem>
-              <Input placeholder="protocol://<host>:<port>" />
+              <Input
+                fullWidth
+                placeholder="protocol://<host>:<port>"
+                value={settingState.proxy}
+                onChange={(event) =>
+                  setSettingState({ ...settingState, proxy: event.target.value })
+                }
+              />
             </ListItem>
           )}
           <ListItem>
             <TextField
               variant="outlined"
+              fullWidth
               label="默认路径"
               value={settingState.defaultDownloadPath}
               onChange={(event) =>
@@ -95,17 +103,7 @@ export default function Settings({ open, close }: props) {
           <ListItem>
             <TextField
               variant="outlined"
-              label="重试次数"
-              type="number"
-              value={settingState.retries}
-              onChange={(event) =>
-                setSettingState({ ...settingState, retries: parseInt(event.target.value) })
-              }
-            />
-          </ListItem>
-          <ListItem>
-            <TextField
-              variant="outlined"
+              fullWidth
               label="临时文件夹路径"
               value={settingState.tempDir || ''}
               onChange={(event) =>
@@ -127,6 +125,17 @@ export default function Settings({ open, close }: props) {
                   </InputAdornment>
                 )
               }}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              variant="standard"
+              label="重试次数"
+              type="number"
+              value={settingState.retries}
+              onChange={(event) =>
+                setSettingState({ ...settingState, retries: parseInt(event.target.value) })
+              }
             />
           </ListItem>
           <ListItem>
@@ -172,7 +181,7 @@ export default function Settings({ open, close }: props) {
         </List>
       </DialogueContent>
       <DialogueActions>
-        <Button autoFocus onClick={handleApply}>
+        <Button autoFocus variant="contained" onClick={handleApply}>
           应用并保存
         </Button>
       </DialogueActions>
