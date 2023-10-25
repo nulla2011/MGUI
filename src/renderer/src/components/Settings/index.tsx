@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import Dialogue from '@mui/material/Dialog';
 import DialogueTitle from '@mui/material/DialogTitle';
 import DialogueContent from '@mui/material/DialogContent';
 import DialogueActions from '@mui/material/DialogActions';
 import TextField from '@mui/material/TextField';
-import { settings } from '@renderer/store/params';
-import { useRecoilState } from 'recoil';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  InputAdornment,
-  List,
-  ListItem
-} from '@mui/material';
-import FolderOpen from '@mui/icons-material/FolderOpen';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import Input from '@mui/material/Input';
+import FolderOpen from '@mui/icons-material/FolderOpen';
+import { settings } from '@renderer/store/params';
 
 interface props {
   open: boolean;
@@ -30,6 +28,7 @@ export default function Settings({ open, close }: props) {
   useEffect(() => setSettingState(settingRecoilState), [settingRecoilState]);
   const handleApply = () => {
     setSettingRecoilState(settingState);
+    window.api.setSettings(settingState);
     close();
   };
   return (

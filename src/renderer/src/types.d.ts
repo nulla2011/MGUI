@@ -23,7 +23,7 @@ declare interface ArchiveDownloaderConfig extends DownloaderConfig {
 declare interface LiveDownloaderConfig extends DownloaderConfig {}
 
 interface IFrontOptions {
-  output?: string;
+  output: string;
   key?: string;
   cookies?: string;
   slice?: string;

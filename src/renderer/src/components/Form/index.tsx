@@ -1,5 +1,5 @@
-import { useState, memo } from 'react';
-import { useRecoilState } from 'recoil';
+import { useState, memo, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -10,7 +10,7 @@ import FolderOpen from '@mui/icons-material/FolderOpen';
 import Switch from '@mui/material/Switch';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import { frontOptions, url } from '@renderer/store/params';
+import { frontOptions, settings, url, path } from '@renderer/store/params';
 import Slice from './Slice';
 import Headers from './Headers';
 
@@ -30,10 +30,51 @@ const UrlInput = memo(function UrlInput() {
     />
   );
 });
+const PathInput = memo(function PathInput() {
+  const settingRecoilState = useRecoilValue(settings);
+  const [pathState, setPathState] = useRecoilState(path);
+  useEffect(() => setPathState(settingRecoilState.defaultDownloadPath!), [settingRecoilState]);
+  return (
+    <TextField
+      variant="outlined"
+      label="存储路径"
+      fullWidth
+      multiline
+      maxRows={3}
+      size="small"
+      margin="normal"
+      sx={{ flex: '1' }}
+      value={pathState || ''}
+      onChange={(event) => setPathState(event.target.value)}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton
+              // variant="contained"
+              // size="small"
+              // sx={{
+              //   mt: '16px',
+              //   mb: '8px',
+              //   height: '40px'
+              // }}
+              onClick={async () => {
+                const p = await window.api.formSelectPath();
+                if (p.filePaths.length > 0) {
+                  setPathState(p.filePaths[0]);
+                }
+              }}
+            >
+              <FolderOpen />
+            </IconButton>
+          </InputAdornment>
+        )
+      }}
+    />
+  );
+});
 function Options({ isLive }: { isLive: boolean }) {
   const [optionState, setOptionState] = useRecoilState(frontOptions);
   const [sliceSwitch, setSliceSwitch] = useState(false);
-  const [path, setPath] = useState('');
   return (
     <>
       <TextField
@@ -45,44 +86,10 @@ function Options({ isLive }: { isLive: boolean }) {
         size="small"
         margin="normal"
         sx={{ flex: '1' }}
-        value={optionState.output || ''}
+        value={optionState.output}
         onChange={(event) => setOptionState({ ...optionState, output: event.target.value })}
       />
-      <TextField
-        variant="outlined"
-        label="存储路径"
-        fullWidth
-        multiline
-        maxRows={3}
-        size="small"
-        margin="normal"
-        sx={{ flex: '1' }}
-        value={path}
-        onChange={(event) => setPath(event.target.value)}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                // variant="contained"
-                // size="small"
-                // sx={{
-                //   mt: '16px',
-                //   mb: '8px',
-                //   height: '40px'
-                // }}
-                onClick={async () => {
-                  const p = await window.api.formSelectPath();
-                  if (p.filePaths.length > 0) {
-                    setPath(p.filePaths[0]);
-                  }
-                }}
-              >
-                <FolderOpen />
-              </IconButton>
-            </InputAdornment>
-          )
-        }}
-      />
+      <PathInput />
       <TextField
         variant="outlined"
         label="Cookie"

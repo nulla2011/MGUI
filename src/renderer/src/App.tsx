@@ -1,17 +1,16 @@
+import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { createTheme } from '@mui/material/styles';
-import CommandInput from './components/CommandInput';
-import Header from './components/Header';
-import Form from './components/Form';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
-import Fab from '@mui/material/Fab';
-import DownloadIcon from '@mui/icons-material/Download';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { frontOptions, settings } from './store/params';
-import { useEffect } from 'react';
+import { settings } from './store/params';
+import CommandInput from './components/CommandInput';
+import Header from './components/Header';
+import Form from './components/Form';
+import DL from './components/DownloadFab';
 declare module '@mui/material/Fab' {
   interface FabPropsColorOverrides {
     pink: true;
@@ -19,20 +18,6 @@ declare module '@mui/material/Fab' {
 }
 const defaultTheme = createTheme();
 
-function DL() {
-  const optionState = useRecoilValue(frontOptions);
-  return (
-    <Fab
-      color="pink"
-      variant="extended"
-      sx={{ position: 'fixed', bottom: 16, right: 16 }}
-      onClick={() => console.log(optionState)}
-    >
-      <DownloadIcon sx={{ mr: 1 }} />
-      下载
-    </Fab>
-  );
-}
 function App() {
   const setSettings = useSetRecoilState(settings);
   useEffect(() => {
