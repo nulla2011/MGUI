@@ -3,6 +3,7 @@ import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import ipc from './ipc';
+import './downloader';
 
 function createWindow(): void {
   // Create the browser window.
@@ -52,7 +53,6 @@ app.whenReady().then(() => {
   });
 
   createWindow();
-
   ipc();
 
   app.on('activate', function () {

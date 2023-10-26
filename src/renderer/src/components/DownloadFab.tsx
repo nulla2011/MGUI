@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { omit, fromPairs } from 'lodash-es';
+import { omit } from 'lodash-es';
 import Fab from '@mui/material/Fab';
 import DownloadIcon from '@mui/icons-material/Download';
 import { url, frontOptions, headers, settings, path } from '@renderer/store/params';
@@ -14,16 +14,18 @@ export default function DL() {
     window.api.downloadArchive(
       urlState,
       Object.assign(
-        { ...optionState, output: pathState + '/' + optionState.output },
+        {},
+        optionState,
         {
           headers:
             headerState.length === 1 && !headerState[0][0] && !headerState[0][1]
-              ? {}
-              : fromPairs(headerState)
+              ? []
+              : headerState.map((h) => h[0] + ':' + h[1])
         },
         omit(settingState, ['enableProxy']),
         { proxy: settingState.enableProxy ? settingState.proxy : '' }
-      )
+      ),
+      pathState
     );
   };
   return (
