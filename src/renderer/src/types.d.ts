@@ -46,3 +46,12 @@ interface Window {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   api: any;
 }
+
+interface IchunkInfo {
+  taskname: string;
+  finishedChunksCount: number;
+  totalChunksCount: number;
+  chunkSpeed: number;
+  ratioSpeed: number;
+  eta: string;
+}

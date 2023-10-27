@@ -58,7 +58,7 @@ const PathInput = memo(function PathInput() {
               //   height: '40px'
               // }}
               onClick={async () => {
-                const p = await window.api.formSelectPath();
+                const p = await window.api.selectPath();
                 if (p.filePaths.length > 0) {
                   setPathState(p.filePaths[0]);
                 }

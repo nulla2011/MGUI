@@ -3,8 +3,11 @@ import path from 'path';
 import { app } from 'electron';
 import { ensureDir, outputJSONSync, readJSONSync } from 'fs-extra';
 import defaultSettings from './defaultSettings';
+import { bootstrap } from 'global-agent';
 
-let settings: Record<string, string | number | boolean>;
+bootstrap();
+type Isettings = typeof defaultSettings & Record<string, string | number | boolean>;
+let settings: Isettings;
 const settingFile = path.join(app.getPath('userData'), 'settings.json');
 if (!fs.existsSync(settingFile)) {
   const defaultDownloadPath = path.join(app.getPath('downloads'), 'minyami');
@@ -17,4 +20,7 @@ if (!fs.existsSync(settingFile)) {
   settings = readJSONSync(settingFile);
 }
 ensureDir(settings.defaultDownloadPath as string);
+if (settings.enableProxy) {
+  global.GLOBAL_AGENT.HTTP_PROXY = settings.proxy ? `http://${settings.proxy}` : null;
+}
 export { settings };

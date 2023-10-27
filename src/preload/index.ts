@@ -4,9 +4,13 @@ import { electronAPI } from '@electron-toolkit/preload';
 // Custom APIs for renderer
 const api = {
   downloadArchive: (url, options, path) => ipcRenderer.send('download-archive', url, options, path),
-  formSelectPath: () => ipcRenderer.invoke('form:select-path'),
+  stopDownload: () => ipcRenderer.send('stop-download'),
+  selectPath: () => ipcRenderer.invoke('select-path'),
   getSettings: () => ipcRenderer.invoke('get-settings'),
-  setSettings: (settings) => ipcRenderer.send('set-settings', settings)
+  setSettings: (settings) => ipcRenderer.send('set-settings', settings),
+  setProxy: (url) => ipcRenderer.send('set-proxy', url),
+  downloadFinished: (callback) => ipcRenderer.on('download-finish', callback),
+  getChunkInfo: (callback) => ipcRenderer.on('chunk-info', callback)
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to

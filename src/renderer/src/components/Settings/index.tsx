@@ -29,6 +29,7 @@ export default function Settings({ open, close }: props) {
   const handleApply = () => {
     setSettingRecoilState(settingState);
     window.api.setSettings(settingState);
+    window.api.setProxy(settingState.enableProxy ? `http://${settingState.proxy}` : null);
     close();
   };
   return (
@@ -64,7 +65,7 @@ export default function Settings({ open, close }: props) {
             <ListItem>
               <Input
                 fullWidth
-                placeholder="protocol://<host>:<port>"
+                placeholder="<host>:<port>"
                 value={settingState.proxy}
                 onChange={(event) =>
                   setSettingState({ ...settingState, proxy: event.target.value })
@@ -86,7 +87,7 @@ export default function Settings({ open, close }: props) {
                   <InputAdornment position="end">
                     <IconButton
                       onClick={async () => {
-                        const p = await window.api.formSelectPath();
+                        const p = await window.api.selectPath();
                         if (p.filePaths.length > 0) {
                           setSettingState({ ...settingState, defaultDownloadPath: p.filePaths[0] });
                         }
@@ -113,7 +114,7 @@ export default function Settings({ open, close }: props) {
                   <InputAdornment position="end">
                     <IconButton
                       onClick={async () => {
-                        const p = await window.api.formSelectPath();
+                        const p = await window.api.selectPath();
                         if (p.filePaths.length > 0) {
                           setSettingState({ ...settingState, tempDir: p.filePaths[0] });
                         }

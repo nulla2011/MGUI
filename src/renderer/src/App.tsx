@@ -11,6 +11,7 @@ import CommandInput from './components/CommandInput';
 import Header from './components/Header';
 import Form from './components/Form';
 import DL from './components/DownloadFab';
+import Progress from './components/Progress';
 declare module '@mui/material/Fab' {
   interface FabPropsColorOverrides {
     pink: true;
@@ -41,6 +42,12 @@ function App() {
             <Paper>
               <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
                 <Form />
+              </Container>
+            </Paper>
+            <Divider />
+            <Paper>
+              <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
+                <Progress />
               </Container>
             </Paper>
           </Stack>
