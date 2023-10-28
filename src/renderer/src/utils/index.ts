@@ -18,3 +18,6 @@ export const nextTick = () => {
   });
 };
 export const replaceStatusValue = (status, key: string, value: unknown) => {};
+export const getChunkIndex = (name: string) => {
+  return parseInt(name.split('_')[0]);
+};
