@@ -2,7 +2,8 @@
   width: 10px;
   height: 10px;
   margin: 2px;
+  background-color: #e2e2e2;
 }
-.uncomplete{
-  background-color: #b3b3b3;
+.complete{
+  background-color: rgb(116, 191, 253);
 }

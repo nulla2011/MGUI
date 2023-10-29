@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import { frontOptions, settings, url, path } from '@renderer/store/params';
 import Slice from './Slice';
 import Headers from './Headers';
+import { isEditing } from '@renderer/store/states';
 
 const UrlInput = memo(function UrlInput() {
   const [urlState, setUrlState] = useRecoilState(url);
@@ -98,7 +99,7 @@ function Options({ isLive }: { isLive: boolean }) {
         maxRows={3}
         size="small"
         margin="normal"
-        helperText="会被请求头里填写的 Cookie 覆盖"
+        helperText="会被请求头里填写的 Cookie 字段覆盖"
         value={optionState.cookies || ''}
         onChange={(event) => setOptionState({ ...optionState, cookies: event.target.value })}
       />
@@ -149,11 +150,14 @@ export default function Controls() {
   //   }
   // });
   const [liveState, setLiveState] = useState(false);
+  const editing = useRecoilValue(isEditing);
   return (
     <Box>
-      <Typography component="h2" gutterBottom>
-        或者直接填写：
-      </Typography>
+      {!editing && (
+        <Typography component="h2" gutterBottom>
+          或者直接填写：
+        </Typography>
+      )}
       <FormGroup row>
         <FormControlLabel
           sx={{ userSelect: 'none' }}

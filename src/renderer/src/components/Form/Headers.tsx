@@ -31,7 +31,7 @@ export default function Headers() {
   // console.table(headersState);
   return (
     <>
-      <Typography>请求头：</Typography>
+      <Typography sx={{ mt: 1 }}>请求头：</Typography>
       <Box sx={{ backgroundColor: defaultTheme.palette.grey[100] }}>
         <Container maxWidth="lg" sx={{ mt: 2, mb: 2, pt: 2, pb: 2 }}>
           <Box sx={{ display: 'flex', gap: 1.5, mb: 0.5 }}>

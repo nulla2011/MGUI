@@ -15,9 +15,23 @@ export default createTheme({
       "'Monospaced Number', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif"
   },
   palette: {
+    primary: {
+      main: '#007FFF',
+      dark: '#0072e5'
+    },
     pink: {
-      main: '#FF6798',
-      dark: '#FD4580'
+      main: '#FF3478',
+      dark: '#FD4580',
+      contrastText: '#FFF'
+    }
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '6px'
+        }
+      }
     }
   }
   // shape: {

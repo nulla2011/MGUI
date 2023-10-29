@@ -8,6 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import parser from 'yargs-parser';
 import { pick } from 'lodash-es';
 import { frontOptions, headers, url } from '@renderer/store/params';
+import { isEditing } from '@renderer/store/states';
 
 export default function CommandInput() {
   const [inputValue, setInputValue] = useState('');
@@ -15,7 +16,9 @@ export default function CommandInput() {
   const setUrl = useSetRecoilState(url);
   const setOptions = useSetRecoilState(frontOptions);
   const setHeaders = useSetRecoilState(headers);
+  const setEditing = useSetRecoilState(isEditing);
   const handleClick = () => {
+    setEditing(true);
     const params = parser(inputValue);
     if ((params['_'][0] as string).toLowerCase() !== 'minyami' || (!params.d && !params.download)) {
       setError(true);

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -21,6 +21,8 @@ const defaultTheme = createTheme();
 
 function App() {
   const setSettings = useSetRecoilState(settings);
+  const [showProgress, setShowProgress] = useState(false);
+  const progressRef = useRef<HTMLHRElement>(null);
   useEffect(() => {
     window.api.getSettings().then((v) => setSettings(v));
   }, []);
@@ -44,16 +46,28 @@ function App() {
                 <Form />
               </Container>
             </Paper>
-            <Divider />
-            <Paper>
-              <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
-                <Progress />
-              </Container>
-            </Paper>
+            <Divider ref={progressRef} />
+            {showProgress && (
+              <Box sx={{ minHeight: '100vh' }}>
+                <Paper sx={{ py: '1px' }}>
+                  <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
+                    <Progress />
+                  </Container>
+                </Paper>
+              </Box>
+            )}
           </Stack>
         </Container>
       </Box>
-      <DL />
+      <DL
+        show={() => {
+          setShowProgress(true);
+          setTimeout(
+            () => progressRef.current!.scrollIntoView({ block: 'start', behavior: 'smooth' }),
+            0
+          );
+        }}
+      />
     </>
   );
 }
