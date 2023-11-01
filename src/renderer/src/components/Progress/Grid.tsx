@@ -15,7 +15,7 @@ export default function Grid({ chunkIndex, total = -1 }: { chunkIndex: number; t
     refList[chunkIndex].classList.add(css.complete);
   }, [chunkIndex]);
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap' }} key={totalState}>
       {Array(totalState)
         .fill(0)
         .map((_, i) => (
