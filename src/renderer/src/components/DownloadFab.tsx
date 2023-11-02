@@ -5,7 +5,7 @@ import Fab from '@mui/material/Fab';
 import DownloadIcon from '@mui/icons-material/Download';
 import StopIcon from '@mui/icons-material/Stop';
 import { url, frontOptions, headers, settings, path } from '@renderer/store/params';
-import { isLoadingM3U8 } from '@renderer/store/states';
+import { chunkStatus, isLoadingM3U8 } from '@renderer/store/states';
 
 export default function DL({ show }: { show: () => void }) {
   const urlState = useRecoilValue(url);
@@ -15,12 +15,14 @@ export default function DL({ show }: { show: () => void }) {
   const pathState = useRecoilValue(path);
   const [isDownloading, setDownloading] = useState(false);
   const setIsLoadingM3U8 = useSetRecoilState(isLoadingM3U8);
+  const setChunkStatus = useSetRecoilState(chunkStatus);
   useEffect(() => {
     window.api.downloadFinished(() => setDownloading(false));
   }, []);
   const handleClick = () => {
     if (!isDownloading) {
       show();
+      setChunkStatus([]);
       setIsLoadingM3U8(true);
       setDownloading(true);
       window.api.downloadArchive(

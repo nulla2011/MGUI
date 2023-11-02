@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
@@ -8,10 +9,11 @@ import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from './Settings';
-import { useState } from 'react';
+import Log from './Log';
 
 export default function Header() {
   const [isSettingsOpen, setSettingsOpen] = useState(false);
+  const [isLogOpen, setLogOpen] = useState(false);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -22,7 +24,7 @@ export default function Header() {
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
             <Tooltip title="日志">
-              <IconButton size="large" color="inherit">
+              <IconButton size="large" color="inherit" onClick={() => setLogOpen(true)}>
                 <ArticleIcon />
               </IconButton>
             </Tooltip>
@@ -35,6 +37,7 @@ export default function Header() {
         </AppBar>
       </Box>
       <Settings open={isSettingsOpen} close={() => setSettingsOpen(false)} />
+      <Log open={isLogOpen} close={() => setLogOpen(false)} />
     </>
   );
 }

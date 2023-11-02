@@ -10,7 +10,11 @@ const api = {
   setSettings: (settings) => ipcRenderer.send('set-settings', settings),
   setProxy: (url) => ipcRenderer.send('set-proxy', url),
   downloadFinished: (callback) => ipcRenderer.on('download-finish', callback),
-  getChunkInfo: (callback) => ipcRenderer.on('chunk-info', callback)
+  m3u8Finished: (callback) => ipcRenderer.on('m3u8-fetch-finished', callback),
+  getChunkInfo: (callback) => ipcRenderer.on('chunk-info', callback),
+  logInfo: (callback) => ipcRenderer.on('log:info', callback),
+  logWarn: (callback) => ipcRenderer.on('log:warn', callback),
+  logErr: (callback) => ipcRenderer.on('log:err', callback)
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to

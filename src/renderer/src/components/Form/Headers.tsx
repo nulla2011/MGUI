@@ -12,6 +12,7 @@ import { createTheme } from '@mui/material/styles';
 import { useRecoilState } from 'recoil';
 import { headers } from '@renderer/store/params';
 import headerSuggestion from '@renderer/constants/headerSuggestion';
+import { useEffect } from 'react';
 
 const defaultTheme = createTheme();
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,9 +26,11 @@ const changeArray = (array: any[], newValue: any, index: number) => {
 };
 export default function Headers() {
   const [headersState, setHeadersState] = useRecoilState(headers);
-  if (headersState.length === 0) {
-    setHeadersState([['', '']]);
-  }
+  useEffect(() => {
+    if (headersState.length === 0) {
+      setHeadersState([['', '']]);
+    }
+  }, [headersState]);
   // console.table(headersState);
   return (
     <>
