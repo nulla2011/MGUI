@@ -7,12 +7,14 @@ import { getChunkIndex } from '@renderer/utils';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { chunkStatus, isLoadingM3U8 } from '@renderer/store/states';
 import CircularProgress from '@mui/material/CircularProgress';
+import { createTheme } from '@mui/material';
 
 export default function Progress() {
   const [chunkInfo, setChunkInfo] = useState<IchunkInfo>();
   const [loadingM3U8, setLoadingM3U8] = useRecoilState(isLoadingM3U8);
   // const [total, setTotal] = useState(0);
   const setChunkStatus = useSetRecoilState(chunkStatus);
+  const theme = createTheme();
   useEffect(() => {
     window.api.getChunkInfo((_event, info) => {
       setChunkInfo((_prev) => info);
@@ -68,6 +70,7 @@ export default function Progress() {
               sx={{
                 height: 7,
                 borderRadius: 4,
+                backgroundColor: theme.palette.grey[300],
                 '& .MuiLinearProgress-bar': {
                   borderRadius: 4
                 }
