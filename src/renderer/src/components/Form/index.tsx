@@ -99,7 +99,7 @@ function Options({ isLive }: { isLive: boolean }) {
         maxRows={3}
         size="small"
         margin="normal"
-        helperText="会被请求头里填写的 Cookie 字段覆盖"
+        helperText="会被请求头填写的 Cookie 字段覆盖"
         value={optionState.cookies || ''}
         onChange={(event) => setOptionState({ ...optionState, cookies: event.target.value })}
       />

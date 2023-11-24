@@ -16,8 +16,8 @@ export default createTheme({
   },
   palette: {
     primary: {
-      main: '#007FFF',
-      dark: '#0072e5'
+      main: '#1a73e8',
+      dark: '#1967d2'
     },
     pink: {
       main: '#FF3478',
@@ -32,8 +32,29 @@ export default createTheme({
           borderRadius: '6px'
         }
       }
+    },
+    MuiCssBaseline: {
+      styleOverrides: `
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #0003;
+        border-radius: 10px;
+        transition: all .2s ease-in-out;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        cursor: pointer;
+        background-color: #0000004d;
+      }
+      ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #f1f1f1;
+      }
+      `
     }
   }
+
   // shape: {
   //   borderRadius: 5
   // }
