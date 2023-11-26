@@ -10,16 +10,24 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from './Settings';
 import Log from './Log';
+import Menu from './Menu';
 
 export default function Header() {
   const [isSettingsOpen, setSettingsOpen] = useState(false);
   const [isLogOpen, setLogOpen] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(false);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color="default">
           <Toolbar variant="dense">
-            <IconButton size="large" edge="start" color="inherit" sx={{ mr: 2 }}>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              sx={{ mr: 2 }}
+              onClick={() => setMenuOpen(true)}
+            >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
@@ -38,6 +46,7 @@ export default function Header() {
       </Box>
       <Settings open={isSettingsOpen} close={() => setSettingsOpen(false)} />
       <Log open={isLogOpen} close={() => setLogOpen(false)} />
+      <Menu open={isMenuOpen} close={() => setMenuOpen(false)} />
     </>
   );
 }
