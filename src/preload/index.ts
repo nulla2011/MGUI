@@ -14,7 +14,8 @@ const api = {
   getChunkInfo: (callback) => ipcRenderer.on('chunk-info', callback),
   logInfo: (callback) => ipcRenderer.on('log:info', callback),
   logWarn: (callback) => ipcRenderer.on('log:warn', callback),
-  logErr: (callback) => ipcRenderer.on('log:err', callback)
+  logErr: (callback) => ipcRenderer.on('log:err', callback),
+  openExternal: (url) => ipcRenderer.send('open-external', url)
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to

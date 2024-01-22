@@ -5,7 +5,8 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import parser from 'yargs-parser';
+import minimist from 'minimist';
+import stringArgv from 'string-argv';
 import { pick } from 'lodash-es';
 import { frontOptions, headers, url } from '@renderer/store/params';
 import { isEditing } from '@renderer/store/states';
@@ -19,7 +20,7 @@ export default function CommandInput() {
   const setEditing = useSetRecoilState(isEditing);
   const handleClick = () => {
     setEditing(true);
-    const params = parser(inputValue);
+    const params = minimist(stringArgv(inputValue));
     if ((params['_'][0] as string).toLowerCase() !== 'minyami' || (!params.d && !params.download)) {
       setError(true);
     } else {
@@ -52,7 +53,7 @@ export default function CommandInput() {
       <Paper sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}>
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="在此粘贴命令"
+          placeholder="在此粘贴从扩展复制来的命令"
           fullWidth
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}

@@ -6,17 +6,26 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import GithubLogo from '@renderer/assets/github-mark.svg';
 
+const openExternal = (url: string) => {
+  window.api.openExternal(url);
+};
 export default function Menu({ open, close }: { open: boolean; close: () => void }) {
   return (
     <Drawer open={open} onClose={close}>
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton
+            onClick={() =>
+              openExternal(
+                'https://chromewebstore.google.com/detail/minyami/cgejkofhdaffiifhcohjdbbheldkiaed'
+              )
+            }
+          >
             <ListItemText primary="Chrome 扩展下载" />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => openExternal('https://github.com/Last-Order/Minyami')}>
             <ListItemIcon>
               <img src={GithubLogo} style={{ width: '20px', height: '20px' }} />
             </ListItemIcon>
@@ -24,7 +33,7 @@ export default function Menu({ open, close }: { open: boolean; close: () => void
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => openExternal('https://github.com/nulla2011/mg')}>
             <ListItemIcon>
               <img src={GithubLogo} style={{ width: '20px', height: '20px' }} />
             </ListItemIcon>

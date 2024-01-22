@@ -1,4 +1,4 @@
-import { app, dialog, ipcMain } from 'electron';
+import { app, dialog, ipcMain, shell } from 'electron';
 import { outputJSON } from 'fs-extra';
 import path from 'path';
 import { settings } from './init';
@@ -15,4 +15,7 @@ export default () => {
     outputJSON(path.join(app.getPath('userData'), 'settings.json'), settings, { spaces: 2 })
   );
   ipcMain.on('set-proxy', (_event, url) => (global.GLOBAL_AGENT.HTTP_PROXY = url));
+  ipcMain.on('open-external', (_event, url) => {
+    shell.openExternal(url);
+  });
 };
