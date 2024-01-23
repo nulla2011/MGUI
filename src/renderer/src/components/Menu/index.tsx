@@ -4,6 +4,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import ListSubheader from '@mui/material/ListSubheader';
 import GithubLogo from '@renderer/assets/github-mark.svg';
 
 const openExternal = (url: string) => {
@@ -13,6 +14,7 @@ export default function Menu({ open, close }: { open: boolean; close: () => void
   return (
     <Drawer open={open} onClose={close}>
       <List>
+        <ListSubheader>Minyami GUI</ListSubheader>
         <ListItem disablePadding>
           <ListItemButton
             onClick={() =>

@@ -23,9 +23,13 @@ function App() {
   const setSettings = useSetRecoilState(settings);
   const [showProgress, setShowProgress] = useState(false);
   const progressRef = useRef<HTMLHRElement>(null);
+  const inputRef = useRef<{ handleClick: () => void }>(null);
   useEffect(() => {
     window.api.getSettings().then((v) => setSettings(v));
   }, []);
+  const parseParams = () => {
+    inputRef.current!.handleClick();
+  };
   return (
     <>
       <Header />
@@ -37,7 +41,7 @@ function App() {
           <Stack spacing={2}>
             <Paper>
               <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                <CommandInput />
+                <CommandInput ref={inputRef} />
               </Container>
             </Paper>
             <Divider />
@@ -67,6 +71,7 @@ function App() {
             0
           );
         }}
+        parse={parseParams}
       />
     </>
   );

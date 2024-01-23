@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import { useState } from 'react';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import minimist from 'minimist';
 import stringArgv from 'string-argv';
@@ -11,13 +11,16 @@ import { pick } from 'lodash-es';
 import { frontOptions, headers, url } from '@renderer/store/params';
 import { isEditing } from '@renderer/store/states';
 
-export default function CommandInput() {
+export default forwardRef(function CommandInput(_props, ref) {
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(false);
   const setUrl = useSetRecoilState(url);
   const setOptions = useSetRecoilState(frontOptions);
   const setHeaders = useSetRecoilState(headers);
   const setEditing = useSetRecoilState(isEditing);
+  useImperativeHandle(ref, () => {
+    return { handleClick };
+  });
   const handleClick = () => {
     setEditing(true);
     const params = minimist(stringArgv(inputValue));
@@ -71,4 +74,4 @@ export default function CommandInput() {
       </Paper>
     </Box>
   );
-}
+});
